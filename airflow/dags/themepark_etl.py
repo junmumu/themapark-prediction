@@ -15,7 +15,7 @@ with DAG(
         'email': ['qkqhdksi0@gmail.com'],
         'email_on_failure': False,
         'email_on_retry': False,
-        'retries': 4,  # 재시도 횟수
+        'retries': 2,  # 재시도 횟수
         'retry_delay': timedelta(minutes=3),  # 재시도 딜레이 - 3분
     },
     description='Themapark ETL Project',
