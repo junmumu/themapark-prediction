@@ -28,8 +28,11 @@ class EventChildParkExtractor:
 
             # 데이터프레임 데이터를 CSV파일로 HDFS에 저장
             file_name = cls.FILE_DIR + 'event_childpark_' + cal_std_day2(0) + '_' + cal_std_day_after(after_cnt-1) + '.csv'
-            with get_client().write(file_name, overwrite=True, encoding='cp949') as writer:
-                df.to_csv(writer, header=['행사명', '시작날짜', '종료날짜'], index=False)
+            if df.empty:
+                get_client().write(file_name, data=childrenpark, overwrite=True, encoding='cp949')
+            else:
+                with get_client().write(file_name, overwrite=True, encoding='cp949') as writer:
+                    df.to_csv(writer, header=['행사명', '시작날짜', '종료날짜'], index=False)
         except Exception as e:
             cls.__dump_log(log_dict, e)
 
